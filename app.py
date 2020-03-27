@@ -56,7 +56,7 @@ def predict():
     images = json.loads(images)
 
     # Inference
-    images = np.array(images)
+    images = np.array(images, dtype=np.float32)
     images = images.reshape((-1, 224, 224, 3))
 
     responses = []
