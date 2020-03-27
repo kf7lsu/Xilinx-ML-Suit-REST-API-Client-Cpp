@@ -18,6 +18,19 @@ BaseClient::BaseClient(const std::string fileName) {
   requestData = std::vector<char>(start, end);
 }
 
+BaseClient::BaseClient(const std::vector<float> requestData) {
+  std::string request;
+  for (float elem : requestData) {
+    char *str;
+    asprintf(&str, "%e", elem);
+    request += str;
+    free(str);
+    request += ',';
+  }
+  request = "[" + request + "]";
+  this->requestData = std::vector<char>(request.begin(), request.end());
+}
+
 size_t BaseClient::handle_data(const char *data, size_t n, size_t l, void *userp) {
   BaseClient *client = (BaseClient*) userp;
   client->response += std::string(data, n * l);

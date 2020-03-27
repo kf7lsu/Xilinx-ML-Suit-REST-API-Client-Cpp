@@ -18,6 +18,7 @@ class BaseClient {
     void sendRequest();
     BaseClient(const std::string fileName);
     BaseClient(const std::vector<char> requestData) : requestData(requestData) {};
+    BaseClient(const std::vector<float> requestData);
     std::string getReply();
 };
 
