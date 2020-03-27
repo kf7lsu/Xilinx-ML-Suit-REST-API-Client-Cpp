@@ -26,8 +26,7 @@ def InferImage(net,image,labels):
   # transformer.set_mean('data', np.array([104,117,123]))
   # transformer.set_raw_scale('data', 255)
   transformer.set_channel_swap('data', (2,1,0)) # if using RGB instead if BGR
-  img=caffe.io.load_image(image)
-  net.blobs['data'].data[...] = transformer.preprocess('data',img)
+  net.blobs['data'].data[...] = transformer.preprocess('data', image)
   ptxtShape = net.blobs["data"].data.shape
   print ("Running with shape of: ",ptxtShape)
   out = net.forward()
