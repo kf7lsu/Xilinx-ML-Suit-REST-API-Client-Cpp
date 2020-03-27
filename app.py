@@ -5,6 +5,7 @@ import os,sys,argparse
 import caffe
 import flask
 import io
+import json
 
 app = flask.Flask(__name__)
  
@@ -13,6 +14,7 @@ def LoadImage(prototxt,caffemodel,labels):
   import xdnn_io
   global net
   net = caffe.Net(prototxt,caffemodel,caffe.TEST)
+  print (net.blobs['data'].data.shape)
   return net  
 
 def InferImage(net,image,labels):
@@ -47,8 +49,11 @@ def predict():
   global synset_words
 
   if flask.request.method == "POST":
-    image = flask.request.files["image"]
-    response = InferImage(net, image, synset_words)
+    image = flask.request.form["image"]
+    print (image)
+    image = json.loads(image)
+    print (image)
+    response = None # InferImage(net, image, synset_words)
     data["success"] = True
     data["response"] = response
 
@@ -81,5 +86,5 @@ if __name__ == "__main__":
   net = LoadImage(prototxt, model, synset_words)
   
   print("Starting Flask Server...")
-  app.run(port=port)
+  app.run('0.0.0.0', port=port)
 
