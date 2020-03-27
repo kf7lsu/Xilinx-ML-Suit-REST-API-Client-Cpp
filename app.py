@@ -6,6 +6,7 @@ import caffe
 import flask
 import io
 import json
+import numpy as np
 
 app = flask.Flask(__name__)
  
@@ -22,8 +23,8 @@ def InferImage(net,image,labels):
   import xdnn_io
   transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
   transformer.set_transpose('data', (2,0,1))
-  transformer.set_mean('data', np.array([104,117,123]))
-  transformer.set_raw_scale('data', 255)
+  # transformer.set_mean('data', np.array([104,117,123]))
+  # transformer.set_raw_scale('data', 255)
   transformer.set_channel_swap('data', (2,1,0)) # if using RGB instead if BGR
   img=caffe.io.load_image(image)
   net.blobs['data'].data[...] = transformer.preprocess('data',img)
@@ -53,7 +54,9 @@ def predict():
     print (image)
     image = json.loads(image)
     print (image)
-    response = None # InferImage(net, image, synset_words)
+    image = np.array(image)
+    image = image.reshape((224,224,3))
+    response = InferImage(net, image, synset_words)
     data["success"] = True
     data["response"] = response
 
