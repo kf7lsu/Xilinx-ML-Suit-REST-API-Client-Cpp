@@ -8,7 +8,7 @@ namespace RestAPIClient {
 
 class BaseClient {
   private:
-    const std::string fileName;
+    std::vector<char> requestData;
     bool requestSent = false;
     std::string response;
 
@@ -16,7 +16,8 @@ class BaseClient {
 
   public:
     void sendRequest();
-    BaseClient(const std::string fileName) : fileName(fileName) {};
+    BaseClient(const std::string fileName);
+    BaseClient(const std::vector<char> requestData) : requestData(requestData) {};
     std::string getReply();
 };
 

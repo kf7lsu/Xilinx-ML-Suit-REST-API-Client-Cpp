@@ -18,7 +18,7 @@ def predict():
     global synset_words
 
     if flask.request.method == "POST":
-        image = flask.request.files["image"]
+        image = flask.request.form["image"]
         print(image)
         response = None  # InferImage(net, image, synset_words)
         data["success"] = True
