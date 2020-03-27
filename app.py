@@ -49,13 +49,20 @@ def predict():
   global synset_words
 
   if flask.request.method == "POST":
+    # Get image
     image = flask.request.form["image"]
-    print (image)
+
+    # Decode array
     image = json.loads(image)
-    print (image)
+
+    # Convert to np.array
     image = np.array(image)
     image = image.reshape((224,224,3))
+
+    # Inference
     response = InferImage(net, image, synset_words)
+
+    # Write response
     data["success"] = True
     data["response"] = response
 
