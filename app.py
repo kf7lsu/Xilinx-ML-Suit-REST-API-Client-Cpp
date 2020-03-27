@@ -50,21 +50,24 @@ def predict():
 
   if flask.request.method == "POST":
     # Get image
-    image = flask.request.form["image"]
+    images = flask.request.form["image"]
 
     # Decode array
-    image = json.loads(image)
-
-    # Convert to np.array
-    image = np.array(image)
-    image = image.reshape((224,224,3))
+    images = json.loads(images)
 
     # Inference
-    response = InferImage(net, image, synset_words)
+    images = np.array(images)
+    images = images.reshape((-1, 224, 224, 3))
+
+    responses = []
+
+    for i in range(images.shape[0]):
+      image = images[i]
+      responses.append(InferImage(net, image, synset_words))
 
     # Write response
     data["success"] = True
-    data["response"] = response
+    data["response"] = responses
 
   return flask.jsonify(data)
 
