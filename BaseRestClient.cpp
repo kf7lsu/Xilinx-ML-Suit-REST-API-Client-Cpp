@@ -27,7 +27,7 @@ BaseClient::BaseClient(const std::vector<float> requestData) {
     free(str);
     request += ',';
   }
-  request = "[" + request + "]";
+  request = "[" + request.substr(0, request.size() - 1) + "]";
   this->requestData = std::vector<char>(request.begin(), request.end());
 }
 
