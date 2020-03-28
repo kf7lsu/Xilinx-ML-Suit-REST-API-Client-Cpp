@@ -15,14 +15,14 @@ To run the test client:
 
 To run SONIC client in CMS LPC:
 
-1. Download `setup.sh` [SONIC](https://github.com/LouYu2015/SonicCMS)
+1. Download `setup.sh` from [SONIC](https://github.com/LouYu2015/SonicCMS)
 2. Set up SONIC: `./setup.sh -f LouYu2015 -p RestAPI -j 8`
   (or replace `LouYu2015` with your own GitHub username if you have another fork)
 3. Go to folder `SonicCMS/CMSSW_10_6_6/src/SonicCMS/RestAPI/python`
 4. Enter CMS environment:
   * `source /cvmfs/cms.cern.ch/cmsset_default.sh`
   * `cmsenv`
-5. Run `cmsRun jetImageTest_mc_cfg.py address=ec2-54-187-97-197.us-west-2.compute.amazonaws.com port=5000 batchSize=10 maxEvents=25` (Replace address and port with your server address/port. Change batch size and max events if needed. Max evenets is the number of events that we want to test for.) The initialization process is slow, so please wait patiently.
+5. Run `cmsRun jetImageTest_mc_cfg.py address=ec2-54-187-97-197.us-west-2.compute.amazonaws.com port=5000 batchSize=10 maxEvents=25` (Replace address and port with your server address/port. Change batch size and max events if needed. Max events is the number of events that we want to test for.) The initialization process is slow, so please wait patiently.
 
 To update SONIC client:
 
