@@ -41,8 +41,4 @@ The test sever will just return `None` as the result
 
 ## Troubleshoot: If Failed to Open the Test Data:
 
-copy the data from CMS LPC with
-
-```
-cp /uscms_data/d3/pedrok/phase2/brainwave/abs/test/CMSSW_10_6_6/src/SonicCMS/Core/data/store_mc_RunIISpring18MiniAOD_BulkGravTohhTohbbhbb_narrow_M-2000_13TeV-madgraph_MINIAODSIM_100X_upgrade2018_realistic_v10-v1_30000_24A0230C-B530-E811-ADE3-14187741120B.root SonicCMS/CMSSW_10_6_6/src/SonicCMS/Core/data/store_mc_RunIISpring18MiniAOD_BulkGravTohhTohbbhbb_narrow_M-2000_13TeV-madgraph_MINIAODSIM_100X_upgrade2018_realistic_v10-v1_30000_24A0230C-B530-E811-ADE3-14187741120B.root
-```
+copy the data from CMS LPC `/uscms_data/d3/pedrok/phase2/brainwave/abs/test/CMSSW_10_6_6/src/SonicCMS/Core/data/store_mc_RunIISpring18MiniAOD_BulkGravTohhTohbbhbb_narrow_M-2000_13TeV-madgraph_MINIAODSIM_100X_upgrade2018_realistic_v10-v1_30000_24A0230C-B530-E811-ADE3-14187741120B.root` into `SonicCMS/CMSSW_10_6_6/src/SonicCMS/Core/data/`.
