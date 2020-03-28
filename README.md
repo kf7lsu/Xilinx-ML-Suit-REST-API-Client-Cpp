@@ -1,19 +1,28 @@
 # C++ implementation of REST API client for Xilinx ML Suit
 
-To run the server:
+# Run the Test Client
 
-1. Add inbound rule for the port in AWS to allow external connection
-2. Add port forwarding in the docker (add the `-p 5000:5000` in `docker_run.sh`)
-3. Replace `app.py` in the [Xilinx example](https://github.com/Xilinx/ml-suite/blob/master/examples/caffe/REST/app.py) with the version in this repo.
-
-To run the test client:
+The test client will just send an array of zeros
 
 1. Install `libcurl4-gnutls-dev`
 2. Change the server address in `Config.cpp`
 3. Run `make`
 4. Run `main.out`
 
-To run SONIC client in CMS LPC:
+# Run the Test Sever
+
+The test sever will just return `None` as the result
+
+1. Replace `app.py` in the [Xilinx example](https://github.com/Xilinx/ml-suite/blob/master/examples/caffe/REST/app.py) with the `runserver.py` in this repo.
+
+
+# Run the FPGA Server
+
+1. Add inbound rule for the port in AWS to allow external connection
+2. Add port forwarding in the docker (add the `-p 5000:5000` in `docker_run.sh`)
+3. Replace `app.py` in the [Xilinx example](https://github.com/Xilinx/ml-suite/blob/master/examples/caffe/REST/app.py) with the version in this repo.
+
+# Run SONIC Client in CMS LPC
 
 1. Download `setup.sh` from [SONIC](https://github.com/LouYu2015/SonicCMS)
 2. Set up SONIC: `./setup.sh -f LouYu2015 -p RestAPI -j 8`
@@ -24,13 +33,13 @@ To run SONIC client in CMS LPC:
   * `cmsenv`
 5. Run `cmsRun jetImageTest_mc_cfg.py address=ec2-54-187-97-197.us-west-2.compute.amazonaws.com port=5000 batchSize=10 maxEvents=25` (Replace address and port with your server address/port. Change batch size and max events if needed. Max events is the number of events that we want to test for.) The initialization process is slow, so please wait patiently.
 
-To update SONIC client:
+# Update SONIC Client:
 
 1. Go to folder `SonicCMS/CMSSW_10_6_6/src/SonicCMS/`
 2. Fetch update: `git pull`
 3. Build: `scram b`
 
-If failed to open the test data:
+# Troubleshoot: If Failed to Open the Test Data:
 
 copy the data from CMS LPC with
 
