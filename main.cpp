@@ -5,9 +5,9 @@
 
 int main() {
   std::vector<float> request;
-  request.push_back(1.2);
-  request.push_back(3);
-  request.push_back(0.000000000001);
+  for (int i = 0; i < 10*224*224*3; i++) {
+    request.push_back(0);
+  }
   RestAPIClient::BaseClient client(request);
   std::cout << client.getReply() << std::endl;
   
