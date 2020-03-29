@@ -27,7 +27,7 @@ class Job:
         self.profile[name] = time.time() - self.profile["start_time"]
 
     def print_profile(self):
-        records = [(key, value) for (key, value) in self.profile]
+        records = [(key, value) for (key, value) in self.profile.items()]
         records.sort(key=lambda x: x[1])
         for key, value in records:
             print(key, ":", value)
