@@ -103,7 +103,7 @@ def predict():
 
         job.record_time("03_convert_to_np_array")
 
-        responses = InferImage(job, net, np.zeros([200,224,224,3]), synset_words)
+        responses = InferImage(job, net, np.zeros([1000,224,224,3]), synset_words)
 
         # Write response
         data["success"] = True
