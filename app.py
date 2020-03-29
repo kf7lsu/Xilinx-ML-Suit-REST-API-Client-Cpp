@@ -74,6 +74,9 @@ def predict():
     global synset_words
 
     if flask.request.method == "POST":
+
+        job.record_time("start")
+
         # Get image
         images = flask.request.form["image"]
 
