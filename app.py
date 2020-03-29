@@ -43,7 +43,7 @@ def LoadImage(prototxt, caffemodel, labels):
     global net
     global transformer
     net = caffe.Net(prototxt, caffemodel, caffe.TEST)
-    print(net.blobs['data'].data.shape)
+    print("network input shape:", net.blobs['data'].data.shape)
 
     # Setup preprocessor
     transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
