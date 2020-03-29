@@ -21,16 +21,22 @@ class Job:
         self.profile = {}
 
     def start_timer(self):
-        self.profile["start_time"] = time.time()
+        self.profile["last_time"] = time.time()
 
     def record_time(self, name):
-        self.profile[name] = time.time() - self.profile["start_time"]
+        t = time.time() - self.profile["last_time"]
+        if name in self.profile:
+            self.profile += t
+        else:
+            self.profile[name] = t
+        self.profile["last_time"] = time.time()
 
     def print_profile(self):
         records = [(key, value) for (key, value) in self.profile.items()]
-        records.sort(key=lambda x: x[1])
+        records.sort(key=lambda x: x[0])
         for key, value in records:
-            print(key, ":", value)
+            if key != "last_time":
+                print(key, ":", value)
 
 
 def LoadImage(prototxt, caffemodel, labels):
@@ -47,10 +53,12 @@ def LoadImage(prototxt, caffemodel, labels):
     transformer.set_channel_swap('data', (2, 1, 0))  # if using RGB instead if BGR
 
 
-def InferImage(net, image, labels):
+def InferImage(job, net, image, labels):
     global transformer
     net.blobs['data'].data[...] = transformer.preprocess('data', image)
+    job.record_time("05_tranform")
     out = net.forward()
+    job.record_time("06_forward")
     softmax = None
     for key in out:
         try:
@@ -58,6 +66,7 @@ def InferImage(net, image, labels):
                 softmax = out[key]
         except:
             pass
+    job.record_time("07_get_result")
     # Labels = xdnn_io.get_labels(labels)
     # xdnn_io.printClassification(softmax, [image], Labels)
     return None  # [x for x in softmax]  # xdnn_io.getClassification(softmax, [image], Labels)
@@ -76,43 +85,41 @@ def predict():
 
     if flask.request.method == "POST":
 
-        job.record_time("start")
+        job.record_time("00_start")
 
         # Get image
         images = flask.request.form["image"]
 
-        job.record_time("get_image")
+        job.record_time("01_get_image")
 
         # Decode array
         images = json.loads(images)
 
-        job.record_time("decode_image")
+        job.record_time("02_decode_image")
 
         # Inference
         images = np.array(images, dtype=np.float32)
         images = images.reshape((-1, 224, 224, 3))
 
-        job.record_time("convert_to_np_array")
+        job.record_time("03_convert_to_np_array")
 
         responses = []
         splitted_images = [images[i] for i in range(images.shape[0])]
 
-        job.record_time("split_image")
+        job.record_time("04_split_image")
 
         for img in splitted_images:
-            responses.append(InferImage(net, img, synset_words))
-
-        job.record_time("inference")
+            responses.append(InferImage(job, net, img, synset_words))
 
         # Write response
         data["success"] = True
         data["response"] = responses
 
-        job.record_time("save_result")
+        job.record_time("08_save_result")
 
     result = flask.jsonify(data)
 
-    job.record_time("encode_result")
+    job.record_time("09_encode_result")
     job.print_profile()
 
     return result
