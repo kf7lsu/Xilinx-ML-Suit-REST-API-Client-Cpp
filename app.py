@@ -47,7 +47,7 @@ def LoadImage(prototxt, caffemodel, labels):
 
     # Setup preprocessor
     transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
-    transformer.set_transpose('data', (0, 3, 1, 2))
+    transformer.set_transpose('data', (2, 0, 1))
     # transformer.set_mean('data', np.array([104,117,123]))
     # transformer.set_raw_scale('data', 255)
     transformer.set_channel_swap('data', (2, 1, 0))  # if using RGB instead if BGR
