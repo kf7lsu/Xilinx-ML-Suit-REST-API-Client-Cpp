@@ -77,6 +77,8 @@ def predict():
         # Get image
         images = flask.request.form["image"]
 
+        job.record_time("get_image")
+
         # Decode array
         images = json.loads(images)
 
