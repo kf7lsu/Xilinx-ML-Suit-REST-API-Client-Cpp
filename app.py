@@ -69,7 +69,6 @@ def InferImage(job, net, image, labels):
     job.record_time("07_get_result")
     # Labels = xdnn_io.get_labels(labels)
     # xdnn_io.printClassification(softmax, [image], Labels)
-    print(softmax.shape)
     return None  # [x for x in softmax]  # xdnn_io.getClassification(softmax, [image], Labels)
 
 
