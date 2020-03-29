@@ -26,7 +26,7 @@ class Job:
     def record_time(self, name):
         t = time.time() - self.profile["last_time"]
         if name in self.profile:
-            self.profile += t
+            self.profile[name] += t
         else:
             self.profile[name] = t
         self.profile["last_time"] = time.time()
