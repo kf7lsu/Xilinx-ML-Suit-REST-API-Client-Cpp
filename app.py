@@ -51,15 +51,16 @@ def InferImage(net, image, labels):
     global transformer
     net.blobs['data'].data[...] = transformer.preprocess('data', image)
     out = net.forward()
+    softmax = None
     for key in out:
         try:
             if out[key].shape[1] == 1000:
                 softmax = out[key]
         except:
             pass
-    Labels = xdnn_io.get_labels(labels)
-    xdnn_io.printClassification(softmax, [image], Labels)
-    return xdnn_io.getClassification(softmax, [image], Labels)
+    # Labels = xdnn_io.get_labels(labels)
+    # xdnn_io.printClassification(softmax, [image], Labels)
+    return softmax  # xdnn_io.getClassification(softmax, [image], Labels)
 
 
 @app.route("/predict", methods=["POST"])
