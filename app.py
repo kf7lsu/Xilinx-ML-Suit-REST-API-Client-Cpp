@@ -95,10 +95,12 @@ def predict():
         job.record_time("convert_to_np_array")
 
         responses = []
+        splitted_images = [images[i] for i in range(images.shape[0])]
 
-        for i in range(images.shape[0]):
-            image = images[i]
-            responses.append(InferImage(net, image, synset_words))
+        job.record_time("split_image")
+
+        for img in splitted_images:
+            responses.append(InferImage(net, img, synset_words))
 
         job.record_time("inference")
 
