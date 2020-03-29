@@ -60,7 +60,7 @@ def InferImage(net, image, labels):
             pass
     # Labels = xdnn_io.get_labels(labels)
     # xdnn_io.printClassification(softmax, [image], Labels)
-    return [x for x in softmax]  # xdnn_io.getClassification(softmax, [image], Labels)
+    return None  # [x for x in softmax]  # xdnn_io.getClassification(softmax, [image], Labels)
 
 
 @app.route("/predict", methods=["POST"])
